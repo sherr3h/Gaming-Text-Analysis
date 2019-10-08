@@ -5,11 +5,12 @@ Youtube Data API Documentation regarding comments: https://developers.google.com
 
 # "GetYoutubeComment.py"
 This code is so far very unorganised. 
-Only extracting videos on the first page of search results (but that can easily be changed)
--Input: 
-  keyword to search relevant videos. Eg: 'Official Call of Duty: Infinite Warfare Reveal Trailer'
--Output: 
-  comments.csv: ['Video ID', 'Title', 'Comment', 'publishedAt']
+
+Only extracting videos on the first page of search results (but that can easily be changed).
+
+| Input | keyword to search relevant videos | Eg: 'Official Call of Duty: Infinite Warfare Reveal Trailer'  |
+| Output | comments.csv | ['Video ID', 'Title', 'Comment', 'publishedAt'] |
+
 
 Before running "GetYoutubeComment.py":
 
