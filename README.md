@@ -1,6 +1,8 @@
 # Gaming-Text-Analysis
 Predict gaming firms' financials using Youtube comments
 
+Youtube Data API Documentation regarding comments: https://developers.google.com/youtube/v3/docs/comments
+
 To run "GetYoutubeComment.py":
 
 ## 0. Install dependencies 
