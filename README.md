@@ -10,9 +10,9 @@ Only extracting videos on the first page of search results.
              OR 
              a csv file with list of video game names
              
-  * Output:  1) . Summary file 'overall_comments.csv' .  ['publish_time', 'video_ID', 'Title', 'viewCount',
+  * Output:  1) Summary file 'overall_comments.csv' .  ['publish_time', 'video_ID', 'Title', 'viewCount',
                                       'likeCount', 'dislikeCount', 'favoriteCount', 'commentCount']
-  2) . For each video: 'XGameName_comments.csv'    ['publish_time', 'Video ID', 'Title', 'Comment', 'updatedAt', 'likeCount']               
+             2) For each video: 'XGameName_comments.csv'    ['publish_time', 'Video ID', 'Title', 'Comment', 'updatedAt', 'likeCount']               
   
 Before running "GetYoutubeComment.py":
 
