@@ -1,7 +1,7 @@
 # Gaming-Text-Analysis
 Predict gaming firms' financials using Youtube comments
 
-✴➡[Transmitter](https://docs.google.com/spreadsheets/d/1Ou8geMOWnvNTOTaoEQTrKldCBFkBgQ8_it-A3OXO7E4/edit?usp=sharing) to Group project Google Sheet ⬅
+✴➡[Transmitter](https://docs.google.com/spreadsheets/d/1Ou8geMOWnvNTOTaoEQTrKldCBFkBgQ8_it-A3OXO7E4/edit?usp=sharing) ⬅ to Group project Google Sheet 
 
 Youtube Data API Documentation regarding comments: https://developers.google.com/youtube/v3/docs/comments
 
