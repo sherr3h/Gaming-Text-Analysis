@@ -8,9 +8,9 @@ Youtube Data API Documentation regarding comments: https://developers.google.com
 # "GetYoutubeComment.py"
 Only extracting videos on the first page of search results.
 
-  * Input:    - keyword to search relevant videos.  Eg: 'Official Call of Duty: Infinite Warfare Reveal Trailer'  
-              - OR 
-             a csv file with list of video game names
+  * Input:    
+     - keyword to search relevant videos.  Eg: 'Official Call of Duty: Infinite Warfare Reveal Trailer'  
+     - OR a csv file with list of video game names
              
   * Output:  
      - Summary file 'overall_comments.csv' .  ['publish_time', 'video_ID', 'Title', 'viewCount',
