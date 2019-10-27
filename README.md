@@ -18,10 +18,10 @@ Only extracting videos on the first page of search results.
 Before running "GetYoutubeComment.py":
 
 ## 0. Install prerequisite
-('google-auth-oauthlib' requires sudo for reasons I don't know) 
+('google-auth-oauthlib' doesn't raise error after installing with sudo) 
 ```
 pip install google-api-python-client google-auth google-auth-httplib2
 sudo pip install google-auth-oauthlib
 ```
 
-## 1. Project Setup for YouTube Data API
+## 1. Setup YouTube Data API on Google developer
