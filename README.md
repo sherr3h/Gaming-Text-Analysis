@@ -28,7 +28,7 @@ sudo pip install google-auth-oauthlib
 
 ### 1. Setup YouTube Data API on Google developer
 
-### 2. Run the script
+### 2. Run 
 
 
 # "Textpreprocess.py"
