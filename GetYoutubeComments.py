@@ -87,7 +87,7 @@ def get_video_comments(service, **kwargs):
             else:
                 break
         except:
-            print("**Error on the {0} th page, nextPageToken: {1}".format(i+k, results['nextPageToken']))
+            print("**Error on the {0} th page, nextPageToken: {1}".format(i, results['nextPageToken']))
             pass
 
     return comments
@@ -177,25 +177,6 @@ def search_videos_by_keyword(service, game, **kwargs):
     write_to_csv(final_result, game, True)
     return final_result, game_summary
 
-
-def get_comments_by_videoid():
-    # Disable OAuthlib's HTTPS verification when running locally.
-    # *DO NOT* leave this option enabled in production.
-    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-
-    api_service_name = "youtube"
-    api_version = "v3"
-    DEVELOPER_KEY = "YOUR_API_KEY"
-
-    youtube = build(
-        api_service_name, api_version, developerKey=DEVELOPER_KEY)
-
-    request = youtube.commentThreads().list(
-
-    )
-    response = request.execute()
-
-    print(response)
 
 
 if __name__ == '__main__':
