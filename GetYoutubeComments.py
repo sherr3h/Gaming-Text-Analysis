@@ -138,7 +138,9 @@ def search_videos_by_keyword(service, game, **kwargs):
 
         stats = get_video_stat(service, part='snippet, statistics', id=video_id)
 
-        comments = get_video_comments(service, part='snippet', videoId=video_id, textFormat='plainText')
+        comments = get_video_comments(service, part='snippet',
+                                      maxResults=100,
+                                      videoId=video_id, textFormat='plainText')
         # make a tuple consisting of the video id, title, comment and add the result to the final list
         # final_result.extend([(video_id, title, comment) for comment in comments])
         final_result.extend([[publish_time, video_id, title] + comment for comment in comments])
@@ -151,9 +153,9 @@ def search_videos_by_keyword(service, game, **kwargs):
 if __name__ == '__main__':
     '''************ Input ************'''
     # region input
-    Input_keyword = False  # if True, need to type in search keyword on terminal
-    max_result_per_page = 2  # display 1-2 video in the search result, default 5 is too many
-    max_comment_per_video = 9980  # max_result_per_page * max_comment_per_video  <10000
+    Input_keyword = True  # if True, need to type in search keyword on terminal
+    max_result_per_page = 1  # display 1-2 video in the search result, default 5 is too many
+    max_comment_per_video = 9900  # max_result_per_page * max_comment_per_video  <10000
                                    # due to Youtube API data limit
 
     if Input_keyword:
@@ -161,6 +163,7 @@ if __name__ == '__main__':
     else:
         input_file = 'input_game_sh.csv'
         Game_names = pd.read_csv(input_file, sep=',', header=None, names=['Game'])
+        Game_names.Game = Game_names.Game.astype(str)
         search_suffix = ' reveal trailer'  # keyword will be game name + suffix, eg. 'Call of Duty reveal trailer'
 
      # endregion input
