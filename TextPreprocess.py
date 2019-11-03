@@ -91,17 +91,17 @@ def pre_process_1(raw_comment_df):
     print('Stopwords removed.')
 
     # get a list of word
-    comment_word_list = get_list_of_words(process_comment_df_1)  # Battle field V no. of words 43820
+    comment_word_list = get_list_of_words(process_comment_df_1)
     print('No. of total words in corpus:', len(comment_word_list))
 
     #  Get bag of words
-    comment_wordset = set(comment_word_list)  # 5957 #pikachu: 1748
+    comment_wordset = set(comment_word_list)
     print('No. of distinct words:', len(comment_wordset))
 
     # Get word distribution as NLTK FreqDist object
     freq_dist = nltk.FreqDist(comment_word_list)
 
-    # Get bag of words by removing rare strings (occurance <= 1)
+    # Get bag of words by removing rare strings (occurrence <= 1)
     common_words = list(filter(lambda x: x[1] > 1, freq_dist.items()))
     common_wordset = set(dict(common_words).keys())
     print('Size of bag of words:', len(common_wordset))
@@ -112,7 +112,7 @@ def pre_process_1(raw_comment_df):
 def generate_word_cloud(comment_word_list, mask=None,
                             output_file="try_word_cloud.png",
                             maxword=200,
-                            stopwords_set=set(['like']),
+                            stopwords_set=set(['']),
                             bg_color="white",
                             contour_width=5,
                             contour_color='gold', **kwargs):
@@ -187,7 +187,7 @@ if __name__ == '__main__':
 
     ########## ########## ########## ########## ##########
     # Section 1.  Remove stop words and rare words:
-    #    Stop words are a pre-defined set
+    #    Stop words are from a pre-defined set
     #    Rare words are defined as frequency <2
     ########## ########## ########## ########## ##########
 
@@ -241,7 +241,7 @@ if __name__ == '__main__':
     generate_word_cloud(comment_word_list, mask=mask_img,
                         output_file="try_word_cloud.png",
                         maxword=200,
-                        stopwords_set=set(['']),
+                        stopwords_set=set(['like']),
                         bg_color="white",
                         contour_width=5,
                         contour_color='gold'
