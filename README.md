@@ -37,7 +37,5 @@ Pre-processing and exploratory text analysis using `nltk` and `wordcloud` packag
 # "MoodLearning.py"
 
 # Todo
-  * Complete corpus - Get all threads for trailers with an enormous amount of comments
-  * More exploratory analysis
-  * Find a suitable sentiment analysis instrument  - POMS?
-  * Financial data. How to find a proper time frame for strategy?
+  * Get all threads for trailers with an enormous amount of comments
+  * Financial data. How to find a proper timeframe for strategy?
