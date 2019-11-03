@@ -20,7 +20,7 @@ Due to Youtube API's daily data limit of 10000 units, only extract the first few
 Before running "GetYoutubeComment.py":
 
 ### 0. Install prerequisite
-('google-auth-oauthlib' doesn't raise error after installing with sudo) 
+(`google-auth-oauthlib` doesn't raise error after installing with sudo) 
 ```
 pip install google-api-python-client google-auth google-auth-httplib2
 sudo pip install google-auth-oauthlib
@@ -32,4 +32,4 @@ sudo pip install google-auth-oauthlib
 
 
 # "Textpreprocess.py"
-Pre-processing and exploratory text analysis using 'nltk' and 'wordcloud' package
+Pre-processing and exploratory text analysis using `nltk` and `wordcloud` package
