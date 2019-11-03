@@ -146,7 +146,6 @@ def generate_word_cloud(comment_word_list, mask=None,
 if __name__ == '__main__':
 
     '''************ Input ************'''
-
     # region input
     Combine_all_file = False
     file_name = 'combined_raw.csv' #'Battlefield V_comments.csv'
@@ -154,7 +153,6 @@ if __name__ == '__main__':
     folder_path = "FINA4350/All-Raw-Data"
     if folder_path is not None:
         os.chdir(folder_path)
-
 
     # endregion input
     '''************ End of Input ************'''
@@ -168,7 +166,7 @@ if __name__ == '__main__':
         extension = 'csv'
         all_filenames = [i for i in glob.glob('*.{}'.format(extension))]
 
-        ''''#    for debugging
+        '''    # For Debugging
         import csv
         with open(r'combined_raw.csv', 'r') as f:
             reader = csv.reader(f)
@@ -211,13 +209,13 @@ if __name__ == '__main__':
     '''
 
     stop_words_add =  stop_words.union(stop_words_deutsch)
-    stop_words_add.update(["'",'let','da','der','du','dem','es','ds','oh','na',
-                           'look','still','say','want','think','know','need','see',
+    stop_words_add.update(["'",'da','der','du','dem','es','ds','oh','na',
+                           'look','still','say','want','think','know','need','see','let',
                            'u','m','d','n','re','nt','go','come','would','ve','get', 'give',
                            'us','also','really','one','could','even','much','always','take','make'])
 
     process_comment_df_1, freq_dist, common_wordset, comment_word_list = pre_process_1(raw_comment_df)
-    # remove rare strings (occurance <= 1)
+    # remove rare strings (occurrence <= 1)
     process_comment_df_2 = remove_rarew_df(process_comment_df_1)
 
     output_name = file_name.replace(".csv", "_processed.csv")
@@ -243,7 +241,7 @@ if __name__ == '__main__':
     generate_word_cloud(comment_word_list, mask=mask_img,
                         output_file="try_word_cloud.png",
                         maxword=200,
-                        #stopwords_set=set(['like']),
+                        stopwords_set=set(['']),
                         bg_color="white",
                         contour_width=5,
                         contour_color='gold'
@@ -258,7 +256,7 @@ if __name__ == '__main__':
     # No. of total words in corpus: 594699
     # No. of distinct words: 43287
     # Size of bag of words: 16742
-    
+
     if Combine_all_file:
         combined_csv_new = process_comment_df_2
 
