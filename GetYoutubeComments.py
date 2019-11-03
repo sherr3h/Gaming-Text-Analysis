@@ -48,7 +48,29 @@ def get_video_comments(service, **kwargs):
     comments = []
     results = service.commentThreads().list(**kwargs).execute()
     i = 0
-    while results and i < max_comment_per_video:  # commentThreads() maxResults = 20
+    print("\nTotal comments: {0} \nResults per page: {1}".format(results['pageInfo']['totalResults'],
+                                                              results['pageInfo']['resultsPerPage']))
+    print("Example output per comment item, snippet")
+    print(results['items'][0]['snippet'].keys())
+    '''
+    if second_time_download:
+        k = 0
+        while results and k < 99: #battlefield5: 589 
+            try:
+                if 'nextPageToken' in results:
+                    #print('nextPageToken (already extracted):', results['nextPageToken'])
+                    kwargs['pageToken'] = results['nextPageToken']
+                    results = service.commentThreads().list(**kwargs).execute()
+                    k += 1
+                else:
+                    break
+            except:
+                print("**Error on the {0} th page, nextPageToken: {1}".format(k, results['nextPageToken']))
+                pass
+    
+        print("Starting extracting from page", k)
+    '''
+    while results and i < max_comment_per_video:  # commentThreads() maxResults = 100
         for item in results['items']:
             comment = [item['snippet']['topLevelComment']['snippet']['textDisplay'],
                        item['snippet']['topLevelComment']['snippet']['updatedAt'], #publishedAt
@@ -57,11 +79,16 @@ def get_video_comments(service, **kwargs):
             i += 1
 
         # Check if another page exists
-        if 'nextPageToken' in results:
-            kwargs['pageToken'] = results['nextPageToken']
-            results = service.commentThreads().list(**kwargs).execute()
-        else:
-            break
+        try:
+            if 'nextPageToken' in results:
+                #print('nextPageToken', results['nextPageToken'])
+                kwargs['pageToken'] = results['nextPageToken']
+                results = service.commentThreads().list(**kwargs).execute()
+            else:
+                break
+        except:
+            print("**Error on the {0} th page, nextPageToken: {1}".format(i+k, results['nextPageToken']))
+            pass
 
     return comments
 
@@ -139,6 +166,7 @@ def search_videos_by_keyword(service, game, **kwargs):
         stats = get_video_stat(service, part='snippet, statistics', id=video_id)
 
         comments = get_video_comments(service, part='snippet',
+                                      #pageToken=99,
                                       maxResults=100,
                                       videoId=video_id, textFormat='plainText')
         # make a tuple consisting of the video id, title, comment and add the result to the final list
@@ -150,13 +178,33 @@ def search_videos_by_keyword(service, game, **kwargs):
     return final_result, game_summary
 
 
+def get_comments_by_videoid():
+    # Disable OAuthlib's HTTPS verification when running locally.
+    # *DO NOT* leave this option enabled in production.
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+    api_service_name = "youtube"
+    api_version = "v3"
+    DEVELOPER_KEY = "YOUR_API_KEY"
+
+    youtube = build(
+        api_service_name, api_version, developerKey=DEVELOPER_KEY)
+
+    request = youtube.commentThreads().list(
+
+    )
+    response = request.execute()
+
+    print(response)
+
+
 if __name__ == '__main__':
     '''************ Input ************'''
     # region input
     Input_keyword = True  # if True, need to type in search keyword on terminal
     max_result_per_page = 1  # display 1-2 video in the search result, default 5 is too many
-    max_comment_per_video = 9900  # max_result_per_page * max_comment_per_video  <10000
-                                   # due to Youtube API data limit
+    max_comment_per_video = 30000
+    second_time_download = False
 
     if Input_keyword:
         keyword = input('Enter a keyword: ')  # eg.'Official Call of Duty: Infinite Warfare Reveal Trailer'
