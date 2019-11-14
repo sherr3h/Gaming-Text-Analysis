@@ -6,7 +6,7 @@ Predict gaming firms' financials using Youtube comments
 Youtube Data API Documentation regarding comments: https://developers.google.com/youtube/v3/docs/comments
 
 # "GetYoutubeComment.py"
-Due to Youtube API's daily data limit of 10000 units, only extract the first (few) videos on the first page of search results.
+Due to Youtube API's daily data limit of 10000 units(1 request=1 unit), only extract the first (few) videos on the first page of search results.
 
   * Input:    
      - keyword to search relevant videos.  Eg: 'Official Call of Duty: Infinite Warfare Reveal Trailer'  
