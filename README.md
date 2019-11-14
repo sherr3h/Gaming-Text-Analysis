@@ -1,11 +1,11 @@
 # Gaming-Text-Analysis
 Predict entertainment firms' financials using Youtube comments
 
-✴➡[Transmitter](https://drive.google.com/drive/folders/1SjHt-wRC7Cj-UbdV0WYDsXPpiHCuN3XS?usp=sharing) ⬅✴ to Group project Google drive
+*  ✴➡[Transmitter](https://drive.google.com/drive/folders/1SjHt-wRC7Cj-UbdV0WYDsXPpiHCuN3XS?usp=sharing) ⬅✴ to Group project Google drive
 
-Youtube Data API Documentation regarding comments: https://developers.google.com/youtube/v3/docs/comments
+* Youtube Data API Documentation regarding comments: https://developers.google.com/youtube/v3/docs/comments
 
-Download a subfolder from Github:
+* Download a subfolder from Github:
 ```
 svn checkout https://github.com/sherr3h/Gaming-Text-Analysis/trunk/Movie-Raw-Data
 ```
