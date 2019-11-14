@@ -1,9 +1,14 @@
 # Gaming-Text-Analysis
-Predict gaming firms' financials using Youtube comments
+Predict entertainment firms' financials using Youtube comments
 
 ✴➡[Transmitter](https://drive.google.com/drive/folders/1SjHt-wRC7Cj-UbdV0WYDsXPpiHCuN3XS?usp=sharing) ⬅✴ to Group project Google drive
 
 Youtube Data API Documentation regarding comments: https://developers.google.com/youtube/v3/docs/comments
+
+Download a subfolder from Github:
+```
+svn checkout https://github.com/sherr3h/Gaming-Text-Analysis/trunk/Movie-Raw-Data
+```
 
 # "GetYoutubeComment.py"
 Due to Youtube API's daily data limit of 10000 units(1 request=1 unit), only extract the first (few) videos on the first page of search results.
@@ -25,6 +30,8 @@ Before running "GetYoutubeComment.py":
 pip install google-api-python-client google-auth google-auth-httplib2
 sudo pip install google-auth-oauthlib
 ```
+
+
 
 ### 1. Setup YouTube Data API on Google developer
 
