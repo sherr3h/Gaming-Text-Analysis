@@ -1,9 +1,7 @@
 # Gaming-Text-Analysis
 Predict entertainment firms' financials using Youtube comments
 
-*  ✴➡[Transmitter](https://drive.google.com/drive/folders/1SjHt-wRC7Cj-UbdV0WYDsXPpiHCuN3XS?usp=sharing) ⬅✴ to Group project Google drive
-
-* ✴Download a subfolder from Github:
+* ✴Download a subfolder (raw data) from Github:
 ```
 svn checkout https://github.com/sherr3h/Gaming-Text-Analysis/trunk/working/Raw_Data_Studios/
 ```
@@ -38,11 +36,6 @@ sudo pip install google-auth-oauthlib
 ### 2. Run 
 
 
-# "Textpreprocess.py"
-Pre-processing and exploratory text analysis using `nltk` and `wordcloud` package.
+# "Master.py"
+Main file that perform pre-processing on text and financial data.
 
-# "MoodLearning.py"
-
-# Todo
-  * Get all threads for trailers with an enormous amount of comments
-  * Financial data. How to find a proper timeframe for strategy?
