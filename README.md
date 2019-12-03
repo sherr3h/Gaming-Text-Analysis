@@ -4,6 +4,7 @@ Predict entertainment firms' financials using Youtube comments
 * ✴Download a subfolder (raw data) from Github:
 ```
 svn checkout https://github.com/sherr3h/Gaming-Text-Analysis/trunk/working/Raw_Data_Studios/
+svn checkout https://github.com/sherr3h/Gaming-Text-Analysis/trunk/working/Financial_Data/
 ```
 * Youtube Data API Documentation about comments: https://developers.google.com/youtube/v3/docs/comments
 
