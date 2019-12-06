@@ -1,6 +1,8 @@
 # Gaming-Text-Analysis
 Predict entertainment firms' financials using Youtube comments
 
+Since we switch our focused to movie industry, all working files related to movie trailers are in "/working".
+
 * ✴Download a subfolder (raw data) from Github:
 ```
 svn checkout https://github.com/sherr3h/Gaming-Text-Analysis/trunk/working/Raw_Data_Studios/
