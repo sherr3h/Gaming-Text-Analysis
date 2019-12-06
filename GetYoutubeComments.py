@@ -1,3 +1,16 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+GetYoutubeComments.py
+@author: Sherry He
+
+This file uses Google API client to call Youtube Data API v3,
+and extract comments from search results
+To run this code, first set up Google api client and OAUTH2
+Documentation: 
+https://developers.google.com/youtube/v3/getting-started
+"""
+
 import csv
 import os
 import pickle
@@ -158,22 +171,30 @@ def search_videos_by_keyword(service, game, **kwargs):
     final_result = []
     game_summary = []
     for item in results:
-        #if item["id"]["kind"] == "youtube#video":
-        publish_time = item['snippet']['publishedAt']
-        title = item['snippet']['title']
-        video_id = item['id']['videoId']
+        try:
+            #if item["id"]["kind"] == "youtube#video":
+            publish_time = item['snippet']['publishedAt']
+            title = item['snippet']['title']
+            video_id = item['id']['videoId']
 
-        stats = get_video_stat(service, part='snippet, statistics', id=video_id)
+            stats = get_video_stat(service, part='snippet, statistics', id=video_id)
 
-        comments = get_video_comments(service, part='snippet',
-                                      #pageToken=99,
-                                      maxResults=100,
-                                      videoId=video_id, textFormat='plainText')
-        # make a tuple consisting of the video id, title, comment and add the result to the final list
-        # final_result.extend([(video_id, title, comment) for comment in comments])
-        final_result.extend([[publish_time, video_id, title] + comment for comment in comments])
-        game_summary.extend([[publish_time, video_id, title] + stat for stat in stats])
-        print('Finished scraping', title)
+
+            comments = get_video_comments(service, part='snippet',
+                                         maxResults=100,
+                                         videoId=video_id, textFormat='plainText')
+    
+            #make a tuple consisting of the video id, title, comment and add the result to the final list
+            #final_result.extend([(video_id, title, comment) for comment in comments])
+            
+            final_result.extend([[publish_time, video_id, title] + comment for comment in comments])
+
+            game_summary.extend([[publish_time, video_id, title] + stat for stat in stats])
+            print('Finished scraping', title)
+        except Exception as e:
+            print (e)
+            write_to_csv(overall_game_summary, 'overall', False, 'a')
+
     write_to_csv(final_result, game, True)
     return final_result, game_summary
 
@@ -184,16 +205,16 @@ if __name__ == '__main__':
     # region input
     Input_keyword = True  # if True, need to type in search keyword on terminal
     max_result_per_page = 1  # display 1-2 video in the search result, default 5 is too many
-    max_comment_per_video = 30000
+    max_comment_per_video = 60000
     second_time_download = False
 
     if Input_keyword:
-        keyword = input('Enter a keyword: ')  # eg.'Official Call of Duty: Infinite Warfare Reveal Trailer'
+        keyword = input('Enter Youtube search keyword: ')  # eg.'Official Call of Duty: Infinite Warfare Reveal Trailer'
     else:
-        input_file = 'input_game_sh.csv'
+        input_file = 'input_movie_sh.csv' #'input_game_sh.csv'
         Game_names = pd.read_csv(input_file, sep=',', header=None, names=['Game'])
         Game_names.Game = Game_names.Game.astype(str)
-        search_suffix = ' reveal trailer'  # keyword will be game name + suffix, eg. 'Call of Duty reveal trailer'
+        search_suffix =  ' official trailer'#' reveal trailer'  # keyword will be game name + suffix, eg. 'Call of Duty reveal trailer'
 
      # endregion input
     '''************ End of Input ************'''
@@ -231,5 +252,178 @@ if __name__ == '__main__':
 
     write_to_csv(overall_game_summary, 'overall', False, 'a')
 
+###### End of Code #####
 
+'''  movie list - only my part
+Paramount = ["Bumblebee","Instant Family","Overlord", "Nobody's Fool",
+"Mission: Impossible – Fallout", "Action Point","Book Club","A Quiet Place",
+"Sherlock Gnomes","Annihilation",
+"The Cloverfield Paradox", "Downsizing","Daddy's Home 2","Suburbicon", 
+"Same Kind of Different as Me", "Mother!","Tulip Fever",
+"An Inconvenient Sequel: Truth to Power", "Transformers: The Last Knight",
+"Baywatch","Ghost in the Shell","Rings","XXX: Return of Xander Cage", 
+"Monster Trucks","Silence","Fences","Office Christmas Party", "Allied", "Arrival", 
+"Jack Reacher: Never Go Back",
+"Goat", "The Intervention","Ben-Hur","Florence Foster Jenkins","The Little Prince",
+"Star Trek Beyond","Approaching the Unknown","Teenage Mutant Ninja Turtles: Out of the Shadows",
+"Everybody Wants Some!!","10 Cloverfield Lane",
+"Whiskey Tango Foxtrot","Zoolander 2","13 Hours: The Secret Soldiers of Benghazi",
+"Anomalisa","Daddy's Home","The Big Short",
+"Scouts Guide to the Zombie Apocalypse",
+"Paranormal Activity: The Ghost Dimension",
+"Captive","Mission: Impossible – Rogue Nation", 
+"Drunk Wedding","Area 51",
 
+"Hot Tub Time Machine 2",
+"The SpongeBob Movie: Sponge Out of Water","Project Almanac",
+"Selma","The Gambler","Top Five","Interstellar",
+"Men, Women & Children","Teenage Mutant Ninja Turtles","Hercules",
+"Transformers: Age of Extinction","Noah",
+"Katy Perry: Part of Me",
+"Madagascar 3: Europe's Most Wanted",
+"The Dictator",
+"Titanic 3-D",
+"A Thousand Words",
+"The Devil Inside",
+"The Adventures of Tintin: Secret of the Unicorn",
+"Young Adult",
+"Hugo",
+"Puss in Boots",
+"Paranormal Activity 3",
+"Footloose",
+"Cowboys & Aliens",
+"Transformers: Dark of the Moon",
+"Super 8",
+"Kung Fu Panda 2",
+"Rango",
+"Justin Bieber: Never Say Never",
+"No Strings Attached",
+"True Grit",
+"The Fighter",
+"Morning Glory",
+"Megamind",
+"Paranormal Activity 2",
+"Jackass 3D",
+"Dinner for Schmucks",
+"The Last Airbender",
+"Shrek Forever After",
+"How to Train Your Dragon",
+"Shutter Island",
+
+"Jack Ryan: Shadow Recruit",
+"Paranormal Activity: The Marked Ones",
+"Labor Day",
+"The Wolf of Wall Street",
+"Anchorman 2: The Legend Continues",
+"Jackass Presents: Bad Grandpa",
+"World War Z",
+"Star Trek Into Darkness",
+"Pain & Gain",
+"Hansel & Gretel: Witch Hunters",
+"Jack Reacher",
+"The Guilt Trip","Rise of the Guardians",
+"Flight",
+"Fun Size",
+"Paranormal Activity 4"]
+'''
+
+'''
+Bridget Jones's Baby - Official Trailer
+Ouija: Origin of Evil - Official Trailer
+Almost Christmas - Official Trailer
+Fast & Furious 6 Official Trailer #1
+The Fate of the Furious - Official Trailer
+
+The Mummy - Official Trailer #2
+American Made - Official Trailer
+Pitch Perfect 3 - Official Trailer 2
+Pacific Rim Uprising - Official Trailer 2 [HD]
+Johnny English Strikes Again - Official Trailer
+Green Book - Official Trailer
+
+Paramount
+Kung Fu Panda 2 | Official Teaser Trailer
+
+universal
+Minions - Official Trailer (HD) - Illumination
+Fifty Shades Of Grey - Official Trailer
+The Secret Life Of Pets 2 - Official Trailer
+The Secret Life Of Pets - Official Teaser Trailer (HD) - Illumination
+Lucy - Trailer
+Fast Five - Teaser Trailer
+Snow White and the Huntsman Official Movie Trailer
+Dr. Seuss' The Lorax (2012) EXCLUSIVE Trailer - HD Movie
+Bridesmaids - Trailer
+
+Sony
+The Interview Final Trailer - Meet Kim Jong-Un
+FURY - Official Trailer sony
+SEX TAPE MOVIE - Official Red Band Trailer
+SMURFS 2 (3D) - Official Trailer
+
+warner bro
+The LEGO Batman Movie - Batcave Teaser Trailer
+ISN'T IT ROMANTIC - Official Trailer
+Final Destination 5 - Trailer
+
+JUSTICE LEAGUE - Official Trailer 1
+THE 15:17 TO PARIS - Official Trailer [HD]
+TOMB RAIDER - Official Trailer #1
+READY PLAYER ONE - Official Trailer 1 [HD]
+RAMPAGE - OFFICIAL TRAILER 1 [HD]
+LIFE OF THE PARTY - Official Trailer 1
+
+OCEAN'S 8 - Official 1st Trailer
+TAG - Official Trailer 1
+Teen Titans GO! To The Movies - Official Trailer 1
+CRAZY RICH ASIANS - Official Trailer
+THE NUN - Official Teaser Trailer [HD]
+SMALLFOOT - Official Final Trailer [HD]
+A STAR IS BORN - Official Trailer 1
+THE MULE - Official Trailer
+
+Aquaman - Official Trailer 1 - Now Playing In Theaters
+TAKEN 3 | Official Trailer [HD] | 20th Century FOX
+Kingsman: The Secret Service | Official Trailer 2 [HD] | 20th Century FOX
+The Longest Ride | Official Trailer [HD] | 20th Century FOX
+Spy | Official Trailer 2 [HD] | 20th Century FOX
+
+Paper Towns | Official Trailer [HD] | 20th Century FOX
+Fantastic Four | Official Trailer [HD] | 20th Century FOX
+Hitman: Agent 47 | Official Trailer 2 [HD] | 20th Century FOX
+Maze Runner: The Scorch Trials | Official Trailer [HD] | 20th Century FOX
+The Martian | Teaser Trailer [HD] | 20th Century FOX
+
+The Peanuts Movie | Official Trailer [HD] | Fox Family Entertainment
+Victor Frankenstein | Official Trailer [HD] | 20th Century FOX
+Alvin and the Chipmunks: The Road Chip | Official Trailer [HD] | Fox Family Entertainment
+JOY | Teaser Trailer [HD] | 20th Century FOX
+The Revenant | Official Teaser Trailer [HD] | 20th Century FOX
+Independence Day: Resurgence | Official Trailer [HD] | 20th Century FOX
+Mike and Dave Need Wedding Dates | Official Trailer [HD] | 20th Century FOX
+
+Ice Age: Collision Course | Official Trailer #2 | 2016
+Morgan | Official Trailer [HD] | 20th Century FOX
+Miss Peregrine's Home for Peculiar Children | Official Trailer [HD] | 20th Century FOX
+Keeping Up With the Joneses | Official Trailer [HD] | 20th Century FOX
+Why Him? | Official Redband HD Trailer #1 | 2016
+Hidden Figures | Teaser Trailer [HD] | 20th Century FOX
+
+Logan | Official Trailer [HD] | 20th Century FOX
+Snatched | Red Band Trailer [HD] | 20th Century FOX
+Diary of a Wimpy Kid: The Long Haul | Official Trailer [HD] | Fox Family Entertainment
+War for the Planet of the Apes | Official Trailer [HD] | 20th Century FOX
+Kingsman: The Golden Circle | Official Trailer [HD] | 20th Century FOX
+The Mountain Between Us | Official HD Trailer #1 | 2017
+Ferdinand | Official Trailer [HD] | Fox Family Entertainment
+
+The Post | Official Trailer [HD] | 20th Century FOX
+Maze Runner: The Death Cure
+Red Sparrow | Official Trailer [HD] | 20th Century FOX
+Love, Simon | Official Trailer [HD] | 20th Century FOX
+The Darkest Minds | Official Trailer [HD] | 20th Century FOX
+The Predator | Official Trailer [HD] | 20th Century FOX
+
+Bad Times at the El Royale | Official Trailer [HD] | 20th Century FOX
+Bohemian Rhapsody | Official Trailer [HD] | 20th Century FOX
+'''
