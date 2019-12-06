@@ -37,6 +37,3 @@ sudo pip install google-auth-oauthlib
 ### 2. Run 
 
 
-# "Master.py"
-Main file that perform pre-processing on text and financial data.
-
